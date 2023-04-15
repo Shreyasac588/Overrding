@@ -1,0 +1,87 @@
+package overriding;
+import java.util.Scanner;
+public class Account {
+	String name;
+	long accno;
+	double bal;
+	public Account(String name,long accno,double bal) {
+		this.name=name;
+		this.accno=accno;
+		this.bal=bal;
+	}
+	public void deposit() {
+		System.out.println("enter the deposit amount");
+		Scanner s=new Scanner(System.in);
+		double amt=s.nextDouble();
+		if(amt>=0) {
+			bal=bal+amt;
+			System.out.println("the total amount is: "+bal);
+			
+		}
+	}
+	public void withdraw() {
+		System.out.println("enter the withdraw amount");
+		Scanner s=new Scanner(System.in);
+		double amt1=s.nextDouble();
+		if(amt1>=0 && amt1<=bal) {
+			bal=bal-amt1;
+			System.out.println("withdraw is succesfull,the total bal amount is: "+bal);
+		}
+	}
+}
+class Savings extends Account{
+	public Savings(String name, long accno, double bal) {
+		super(name, accno, bal);
+	}
+		// TODO Auto-generated constructor stub
+		@Override
+		public void withdraw() {
+			System.out.println("enter the withdraw amount");
+			Scanner s=new Scanner(System.in);
+			double amt1=s.nextDouble();
+			if(amt1>=0 && amt1<=bal) {
+				bal=bal-amt1;
+				System.out.println("withdraw is succesfull,the total amount is: "+bal);
+			}else {
+				System.out.println("amount is greater than balance");
+			}
+	}
+}
+
+class Current extends Account{
+	public Current(String name, long accno, double bal) {
+		super(name, accno, bal);
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public void withdraw() {
+		double minbal=500;
+		System.out.println("enter the withdraw amount");
+		Scanner s=new Scanner(System.in);
+		double amt1=s.nextDouble();
+		if(amt1>=0 && amt1<=bal && bal>=amt1+minbal) {
+			bal=bal-amt1;
+			System.out.println("withdraw is succesfull,the total amount is: "+bal);
+		}else {
+			System.out.println("wthdraw not possible becouse it will deduct the minimum balance");
+		}
+}
+	
+}
+	
+//main..........................................................................
+
+class Test{
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Current c=new Current("Shreyas",214894754l,8000);
+		c.deposit();
+		c.withdraw();
+		Savings s=new Savings("revanna",5479841l,9000);
+		s.deposit();
+		s.withdraw();
+		
+	}
+}
+
+
